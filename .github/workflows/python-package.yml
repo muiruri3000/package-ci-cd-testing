@@ -37,7 +37,7 @@ jobs:
         flake8 . --exclude=venv --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest --junitxml=junit/test-results-${{ matrix.python-version }}.xml --cov=.
+        pytest 
 
 
     - name: Upload pytest test results
