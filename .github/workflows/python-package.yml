@@ -52,14 +52,14 @@ jobs:
       run: |
           python -m build
 
-    - name: Publish package to PyPI
-      env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
-      run: |
-          python -m twine upload dist/*
-    - name: Set version from tag
-      run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+    # - name: Publish package to PyPI
+    #   env:
+    #       TWINE_USERNAME: __token__
+    #       TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+    #   run: |
+    #       python -m twine upload dist/*
+    # - name: Set version from tag
+    #   run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
 
     - name: Log in to Docker Hub
