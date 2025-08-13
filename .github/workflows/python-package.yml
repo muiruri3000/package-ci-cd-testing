@@ -75,5 +75,5 @@ jobs:
         context: .
         push: true
         tags: |
-         muiruri1/pypi:${{ env.VERSION }}
-         muiruri1/pypi:latest
+          muiruri1/pypi:${{ env.VERSION }}
+          muiruri1/pypi:latest
