@@ -10,9 +10,13 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-and-push:
 
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ["3.12"]
 
     steps:
     - uses: actions/checkout@v4
@@ -33,7 +37,7 @@ jobs:
         flake8 . --exclude=venv --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest
+        pytest --junitxml=junit/test-results-${{ matrix.python-version }}.xml --cov=.
 
 
     - name: Upload pytest test results
@@ -43,6 +47,10 @@ jobs:
           path: junit/test-results-${{ matrix.python-version }}.xml
         # Use always() to always run this step to publish test results when there are test failures
       if: ${{ always() }}
+
+    - name: Set version from tag
+      if: startsWith(github.ref, 'refs/tags/')
+      run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
     - name: Install build tools
       run: |
